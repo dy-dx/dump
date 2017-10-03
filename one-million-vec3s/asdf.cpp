@@ -21,7 +21,7 @@ void ayy() {
   }
 }
 
-void lmao() {
+void lmao(int jordan) {
   std::vector<vec3i> vec;
   size_t index = 0;
   while (index < 3000000)
@@ -30,10 +30,10 @@ void lmao() {
   }
 }
 
-template<typename T>
-void time(T fn) {
+template<typename T, typename... Args>
+void time(T fn, Args... args) {
   auto before = std::chrono::high_resolution_clock::now();
-  fn();
+  fn(args...);
   auto after = std::chrono::high_resolution_clock::now();
   auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(after - before);
   cout << microseconds.count() << endl;
@@ -41,6 +41,6 @@ void time(T fn) {
 
 int main() {
   time(&ayy);
-  time(&lmao);
+  time(&lmao, 1337);
   return 0;
 }
