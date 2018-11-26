@@ -1,0 +1,17 @@
+#!/bin/bash
+ROOT_PARTITION=$(df / | grep / | awk '{ print $5}' | sed 's/%//g')
+HOME_PARTITION=$(df /home | grep /home | awk '{ print $5}' | sed 's/%//g')
+THRESHOLD=90
+EMAIL="your.email@domain.com"
+
+if [ "$ROOT_PARTITION" -gt "$THRESHOLD" ] ; then
+    mail -s 'Plex Disk Space Alert' "$EMAIL" << EOF
+Your root partition remaining free space is critically low. Used: $ROOT_PARTITION%
+EOF
+fi
+
+if [ "$HOME_PARTITION" -gt "$THRESHOLD" ] ; then
+    mail -s 'Plex Disk Space Alert' "$EMAIL" << EOF
+Your home partition remaining free space is critically low. Used: $HOME_PARTITION%
+EOF
+fi
